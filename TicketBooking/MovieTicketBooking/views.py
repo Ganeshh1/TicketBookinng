@@ -171,6 +171,7 @@ def logoutPage(request):
 
 def Addmovie(request):
     if request.method =='POST':
+        flag_movie,flag_theater,flag_show=False,False,False
         moviename=request.POST['moviename']
         time=request.POST['time']
         date=request.POST['date']
@@ -178,12 +179,30 @@ def Addmovie(request):
         theatername=request.POST['theatername']
         count=request.POST['count']
         print(moviename,time,date,theatername,count)
-        newtheater=Theater(name=theatername)
-        newtheater.save()
-        newmovie=Movies(name=moviename,theater_name=newtheater)
-        newmovie.save()
-        newshow=ShowTiming(movie=newmovie,showtime=datetime)
-        newshow.save()
+        for theater in Theater.objects.all():
+            if(theatername==theater.name):
+                flag_theater=True
+        if(flag_theater):
+            newtheater=Theater.objects.get(name=theatername)
+        else:
+            newtheater=Theater(name=theatername)
+            newtheater.save()
+        for movie in Movies.objects.all():
+            if(moviename==movie.name):
+                flag_movie=True
+        if(flag_movie):
+            newmovie=Movies.objects.get(name=moviename)
+        else:
+            newmovie=Movies(name=moviename,theater_name=newtheater)
+            newmovie.save()
+        for showtimes in ShowTiming.objects.all():
+            if(datetime==showtimes.showtime):
+                flag_show=True
+        if(flag_show):
+            newshow=ShowTiming.objects.get(showtime=datetime)
+        else:
+            newshow=ShowTiming(movie=newmovie,showtime=datetime)
+            newshow.save()
         newshowtime=TotalCount(Tickets=newshow,count=count)
         newshowtime.save()
         context={
