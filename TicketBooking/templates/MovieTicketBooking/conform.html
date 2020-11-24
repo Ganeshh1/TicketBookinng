@@ -1,0 +1,20 @@
+{% extends 'MovieTicketBooking/basetemplate.html' %}
+{% block content %}
+<section id="services">
+  <div class="services container">
+        <h1 class="section-title">Confirm<span>Your</span>Movie</h1>
+        <form action='conform/' method='POST'>
+            {% csrf_token %}
+            
+            <h1 class="section-title"><span>{{show.Tickets.movie}}</span></h1>
+            <img src='{{show.Tickets.movie.movie_image.url}}'>
+            <h2>{{show.Tickets.showtime}}</h2>
+            Tickets Left:<H1>{{show.count}}</H1>
+            No of Tickects You want to Book <input type="number" name='count'>
+            <button type="submit" >Submit</button>
+        </form>
+    </div>
+</section>
+{% endblock content %}
+
+

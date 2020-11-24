@@ -1,0 +1,34 @@
+{% extends 'MovieTicketBooking/basetemplate.html' %}
+
+
+{% block content %}
+<section id="services">
+  <div class="services container">
+        <h1 class="section-title">Mo<span>v</span>ies</h1>
+      <form method="POST" action='show/' >
+            {% csrf_token %}
+            {% if timing %}
+            {% for i in timing %}
+                <h1>{{i.showtime }}</h1>
+    
+    
+                <h1>{{movie.name}}</h1>
+                <img src="{{movie.movie_image.url}}"/>
+                <br><br>
+    
+                <button type="submit" value='{{i.id }}'name='number' >Select</button>
+    
+            {% endfor %}
+            {% else %}
+            
+        <h1 class="section-title">Movie <span>Time for Booking</span>expired</h1>
+            {% endif %}
+        </form>
+      
+    </div>
+</section>
+{% endblock content %}
+
+
+
+

@@ -1,0 +1,23 @@
+{% extends 'MovieTicketBooking/basetemplate.html' %}
+
+
+{% block content %}
+<section id="services">
+  <div class="services container">
+    
+      <h1 class="section-title">The<span>a</span>ters</h1>
+    
+      <form method="POST" action="">
+       {% csrf_token %}
+        <select name="Theater_name">
+          {% for i in Theater %}
+          <option value="{{i.name}}">{{i.name}}</option>
+          {% endfor %}
+        </select>
+  
+        <button type="submit" >Select</button>
+      </form>
+    
+  </div>
+</section>
+{% endblock content %}

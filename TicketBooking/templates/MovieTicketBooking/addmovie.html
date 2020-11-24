@@ -1,0 +1,33 @@
+
+
+{% extends 'MovieTicketBooking/basetemplate.html' %}
+
+
+{% block content %}
+<form  method="POST" action=''>
+  {% csrf_token %}
+<section id="projects">
+    <div class="projects container">
+      <div class="projects-header">
+        <h1 class="section-title">Add <span>Movies</span></h1>
+      </div>
+      <div class="project-item">
+        <div class="project-info">
+   <input type="text" name='moviename' autofocus="true" required="true" placeholder="Moviename" />
+   <br>
+  Time and Date<input type="time"  required="true"  name="time" /><input type="date"  required="true"  name="date" />  
+  <br> 
+  <input type="text" name='theatername' autofocus="true" required="true" placeholder="Theatername" />
+  <br>  
+  <input type="number" name='count' autofocus="true" required="true" placeholder="TicketCount" />
+  <br>
+  <input type="submit" name="Login" value="Create" class="login-submit" />
+
+        </div>
+        
+      </div>
+      
+    </div>
+  </section>
+</form>
+{% endblock content %}
