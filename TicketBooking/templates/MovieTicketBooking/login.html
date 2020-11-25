@@ -167,6 +167,12 @@ input {
     <input type="text" name='username'class="login-username" autofocus="true" required="true" placeholder="Username" />
     <input type="password" class="login-password" required="true" placeholder="Password" name="password" />
     <input type="submit" name="Login" value="Login" class="login-submit" />
+    <p class="lgin-submit" style="color: blanchedalmond;">  {% if messages %}
+  {% for message in messages %}
+  {{message}}
+  {% endfor %}
+  {% endif %}
+</p>
   </form>
   
   <a href="{% url 'register' %}" class="login-forgot-pass">Register New</a>
