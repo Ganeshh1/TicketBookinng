@@ -205,6 +205,7 @@ def Addmovie(request):
             newshow.save()
         newshowtime=TotalCount(Tickets=newshow,count=count)
         newshowtime.save()
+        messages.success(request,'Movie added Succeessfully!')
         context={
         'movie':Movies.objects.all(),
         'Theater':Theater.objects.all(),
@@ -235,6 +236,7 @@ def RemoveMovie(request):
         name=request.POST['name']
         removemovie=Movies.objects.get(name=name)
         removemovie.delete()
+        messages.success(request,'Movie Removed Succeessfully!')
         context={
         'movie':Movies.objects.all(),
         'Theater':Theater.objects.all(),
