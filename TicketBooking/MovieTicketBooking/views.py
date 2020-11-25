@@ -167,6 +167,7 @@ def loginPage(request):
 
 def logoutPage(request):
     logout(request)
+    messages.info(request,'Logout Out')
     return redirect('login')
 
 def Addmovie(request):
