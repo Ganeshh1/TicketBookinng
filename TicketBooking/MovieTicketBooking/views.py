@@ -48,15 +48,13 @@ def Disp(request):
     global current_show,current_TheaterName,curret_movie_name
     theater=Theater.objects.get(name=current_TheaterName)
     movie=Movies.objects.filter(theater_name=theater) 
-    print(current_TheaterName)
     curret_movie_name=movie
     
 
     if request.method =='POST':
         
-        print(request.POST)
+        
         moviename=request.POST.get('name')
-        print(current_show)
         movie_name=Movies.objects.get(name=moviename)
         current_show=ShowTiming.objects.filter(movie=movie_name,showtime__gte=datetime.now())
         context={
@@ -67,7 +65,7 @@ def Disp(request):
         return render(request,'MovieTicketBooking/show.html',context)
 
     context={
-        'movies':Movies.objects.filter(theater_name=y),
+        'movies':Movies.objects.filter(theater_name=current_TheaterName),
         'timing':ShowTiming.objects.all(),
          }
     return render(request,'MovieTicketBooking/Movies.html',context)
@@ -77,12 +75,9 @@ def Disp(request):
 @login_required
 def Show(request):
     global current_show,curret_movie_name,Final_movie
-    
     if request.method=='POST':
-        print(request.POST)
         ticket_timing=request.POST['number']
         show=TotalCount.objects.get(Tickets=ShowTiming.objects.get(id=ticket_timing ))
-        print(show)
         context={
         
         'show':show,
@@ -102,7 +97,6 @@ def Show(request):
 @login_required
 def Confirm(request):
     global Final_movie
-    print(Final_movie)
     if request.method=='POST':
         count=int(request.POST['count'])
         print(count,Final_movie.count)
@@ -125,10 +119,8 @@ def Confirm(request):
 
 def register(request):
     form =CreateUserForm()
-    print(form)
     if request.method == 'POST':
-        form =CreateUserForm(request.POST)
-        print(request.POST)
+        form=CreateUserForm(request.POST)
         if form.is_valid(): 
             form.save()
             messages.success(request,'Account Created!')
@@ -179,7 +171,6 @@ def Addmovie(request):
         datetime=date+' '+time+':00+00:00'
         theatername=request.POST['theatername']
         count=request.POST['count']
-        print(moviename,time,date,theatername,count)
         for theater in Theater.objects.all():
             if(theatername==theater.name):
                 flag_theater=True
