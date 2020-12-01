@@ -3,5 +3,31 @@
 
 
 {% block content %}
-<h1>add </h1>
+
+<section id="services">
+    <div class="services container">
+      
+        <h1 class="section-title">Mo<span>v</span>ies</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+             <select name="show_name">
+               {% for i in Show %}
+               <option value="{{i.id}}">{{i}}</option>
+               {% endfor %}
+             </select>
+             <br><br>
+             <input type="text" name='moviename' autofocus="true" required="true" placeholder="Moviename" />
+            <br><br> 
+            Time and Date<input type="time"  required="true"  name="time" /><input type="date"  required="true"  name="date" />  
+            <br><br>  
+            <input type="text" name='theatername' autofocus="true" required="true" placeholder="Theatername" />
+            <br><br>   
+            <input type="number" name='count' autofocus="true" required="true" placeholder="TicketCount" />
+            <br><br> 
+            <input type="submit" name="Login" value="Update" class="login-submit" />
+       
+             
+           </form>
+    </div>
+</section>
 {% endblock content %}
